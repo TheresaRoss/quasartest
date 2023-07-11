@@ -1,7 +1,6 @@
 <template>
   <q-drawer
     v-model="store.opened"
-    show-if-above
     :width="200"
     :breakpoint="500"
     bordered
@@ -73,7 +72,7 @@ export default defineComponent({
   setup() {
     const store = useCounterStore();
     return {
-      drawer: ref(false),
+      drawer: ref(true),
       menuList,
       store,
     };

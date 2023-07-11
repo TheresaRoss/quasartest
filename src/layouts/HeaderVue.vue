@@ -29,6 +29,7 @@
         >{{ weatherdata.name }}:</span
       >
       <q-badge
+        :v-if="kelvinToCelsius(weatherdata.main.temp) != NaN"
         class="q-mr-lg q-px-lg q-py-md"
         rounded
         style="font-size: 25px; background: rgba(38, 198, 218, 0.7)"

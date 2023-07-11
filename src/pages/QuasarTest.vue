@@ -103,9 +103,7 @@
         </div>
       </q-card-section>
 
-      <q-card-section>
-        {{ lorem }}
-      </q-card-section>
+      <q-card-section> </q-card-section>
 
       <q-separator />
 

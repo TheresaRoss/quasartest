@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 export const useCounterStore = defineStore("counter", {
   state: () => ({
     counter: 0,
-    opened: true,
+    opened: false,
   }),
 
   getters: {
@@ -18,6 +18,7 @@ export const useCounterStore = defineStore("counter", {
     },
     turnaround() {
       this.opened = !this.opened;
+      console.log(this.opened);
     },
   },
 });
