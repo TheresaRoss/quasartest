@@ -43,10 +43,11 @@
 <script>
 import { defineComponent, reactive } from "vue";
 import { useCounterStore } from "../stores/main";
-
+import { useSecondStore } from "src/stores/secondstore";
 export default defineComponent({
   setup() {
     const store = useCounterStore();
+    const store2 = useSecondStore();
     return {
       store,
     };
@@ -60,6 +61,7 @@ export default defineComponent({
     };
   },
   created() {
+    console.log("value ", this.store2.counter);
     this.$axios({
       method: "get",
       url:
