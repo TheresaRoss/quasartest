@@ -62,7 +62,9 @@ export default defineComponent({
   created() {
     this.$axios({
       method: "get",
-      url: "https://api.openweathermap.org/data/2.5/weather?q=Bangkok&appid=64bdf86fff1f7e7fdf4bea88cbdd9f4d",
+      url:
+        "https://api.openweathermap.org/data/2.5/weather?q=Bangkok&appid=" +
+        process.env.API_KEY,
     })
       .then((res) => {
         console.log(res.data);

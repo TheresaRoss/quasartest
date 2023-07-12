@@ -74,7 +74,8 @@ export default defineComponent({
       const urltosend =
         "https://api.openweathermap.org/data/2.5/weather?q=" +
         this.city +
-        "&appid=64bdf86fff1f7e7fdf4bea88cbdd9f4d";
+        "&appid=" +
+        process.env.API_KEY;
       this.$axios({
         method: "get",
 
