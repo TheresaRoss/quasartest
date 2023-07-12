@@ -22,6 +22,12 @@
           text-color="white"
           label="Weather"
         />
+        <q-route-tab
+          to="/table"
+          color="purple-8"
+          text-color="white"
+          label="Table"
+        />
       </q-tabs>
 
       <q-space />
@@ -50,6 +56,7 @@ export default defineComponent({
     const store2 = useSecondStore();
     return {
       store,
+      store2,
     };
   },
   name: "HeaderVue",
@@ -61,7 +68,8 @@ export default defineComponent({
     };
   },
   created() {
-    console.log("value ", this.store2.counter);
+    console.log("value1 ", this.store.doubleCount);
+    console.log("value2 ", this.store2.doubleCount);
     this.$axios({
       method: "get",
       url:

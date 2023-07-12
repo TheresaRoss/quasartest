@@ -4,15 +4,39 @@
   <q-card class="my-card" style="max-width: 90vw" flat bordered>
     <q-img src="mountainbg.jpg" fit="cover" style="max-height: 300px">
       <div
-        style="height: 100vh; width: 20vw; background: rgba(0, 0, 0, 0.27)"
+        style="height: 100vh; width: 30vw; background: rgba(0, 0, 0, 0.27)"
         class="absolute-top-right text-subtitle1 text-right"
       >
-        <h3 class="q-mt-sm q-mb-lg">{{ weatherdata.name }}</h3>
+        <h3
+          v-if="kelvinToCelsius(weatherdata.main.temp)"
+          class="q-mt-sm q-mb-lg"
+        >
+          {{ weatherdata.name }}, {{ weatherdata.sys.country }}
+        </h3>
 
-        <h5 v-if="kelvinToCelsius(weatherdata.main.temp)" class="q-mt-sm">
-          <q-icon size="lg" color="yellow" left name="light_mode" />
+        <h5
+          v-if="kelvinToCelsius(weatherdata.main.temp)"
+          class="q-mt-sm q-mb-md"
+        >
+          <q-icon
+            size="lg"
+            left
+            :color="weathersym.color"
+            style="justify-content: start"
+            :name="weathersym.name"
+          />
 
           {{ kelvinToCelsius(weatherdata.main.temp) }} &#8451;
+        </h5>
+        <h5 v-if="kelvinToCelsius(weatherdata.main.temp)" class="q-mt-sm">
+          <q-icon
+            size="lg"
+            style="justify-content: start"
+            left
+            name="device_thermostat"
+          />
+
+          {{ kelvinToCelsius(weatherdata.main.feels_like) }} &#8451;
         </h5>
       </div>
     </q-img>
@@ -56,13 +80,19 @@ export default defineComponent({
     return {
       city: ref(null),
 
-      options: ["Bangkok", "London", "Tokyo", "Berlin", "New York"],
+      options: ["Bangkok", "London", "Tokyo", "Berlin", "New York", "Auckland"],
     };
   },
   data() {
     return {
       weatherdata: {
         main: {},
+        sys: {},
+        weather: {},
+      },
+      weathersym: {
+        name: "",
+        color: "",
       },
     };
   },
@@ -84,6 +114,7 @@ export default defineComponent({
         .then((res) => {
           console.log(res.data);
           this.weatherdata = res.data;
+          this.weatherCodeToIcon(res.data.weather[0].id);
         })
         .catch((err) => {
           console.log(err);
@@ -94,6 +125,40 @@ export default defineComponent({
         return (kelvin - 273.15).toFixed(2);
       } else {
         return false;
+      }
+    },
+    weatherCodeToIcon(code) {
+      const result = Math.floor(code / 100);
+      console.log(result);
+      switch (result) {
+        case 2:
+          this.weathersym.name = "thunderstorm";
+          this.weathersym.color = "grey-8";
+          return;
+        case 3:
+          this.weathersym.name = "rainy_light";
+          this.weathersym.color = "blue-6";
+          return;
+        case 5:
+          this.weathersym.name = "rainy";
+          this.weathersym.color = "blue-9";
+          return;
+        case 6:
+          this.weathersym.name = " weather_snowy";
+          this.weathersym.color = "white";
+          return;
+
+        case 8:
+          if (code == 800) {
+            this.weathersym.name = " sunny";
+            this.weathersym.color = "yellow";
+          } else {
+            this.weathersym.name = "cloudy";
+            this.weathersym.color = "grey-6";
+          }
+          return;
+        default:
+          return;
       }
     },
   },

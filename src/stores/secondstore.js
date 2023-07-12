@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-export const useSecondStore = defineStore("counter", {
+export const useSecondStore = defineStore("counter2", {
   state: () => ({
     counter: 999,
     opened: false,
@@ -8,7 +8,7 @@ export const useSecondStore = defineStore("counter", {
 
   getters: {
     doubleCount(state) {
-      return state.counter * 2;
+      return state.counter + 2;
     },
   },
 

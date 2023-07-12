@@ -12,6 +12,7 @@ const routes = [
     path: "/weather",
     component: () => import("pages/Weather.vue"),
   },
+  { path: "/table", component: () => import("pages/Table.vue") },
   // but you can also remove it
   {
     path: "/:catchAll(.*)*",

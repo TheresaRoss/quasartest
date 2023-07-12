@@ -9,7 +9,7 @@
 // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js
 
 const { configure } = require("quasar/wrappers");
-console.log(require("dotenv").config().parsed);
+
 module.exports = configure(function (/* ctx */) {
   return {
     eslint: {
