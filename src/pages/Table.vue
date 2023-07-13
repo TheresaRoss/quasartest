@@ -83,6 +83,12 @@
       </div>
     </template>
   </q-table>
+  <apexchart
+    width="1000"
+    type="line"
+    :options="optionsla"
+    :series="series"
+  ></apexchart>
 </template>
 
 <script>
@@ -90,6 +96,7 @@ import { defineComponent, ref } from "vue";
 
 export default defineComponent({
   name: "TableNa",
+  components: {},
   setup() {
     return {
       city: ref(null),
@@ -99,6 +106,28 @@ export default defineComponent({
   },
   data() {
     return {
+      optionsla: {
+        chart: {
+          id: "vuechart-example",
+        },
+        xaxis: {
+          categories: [],
+        },
+        markers: {
+          size: 7,
+          colors: ["#f44336"],
+        },
+      },
+      series: [
+        {
+          name: "temp",
+          data: [],
+        },
+        {
+          name: "feels_like",
+          data: [],
+        },
+      ],
       weatherdata: {},
       columns: [
         { name: "dt", label: "Datetime", field: "dt_txt", align: "left" },
@@ -144,7 +173,7 @@ export default defineComponent({
         url: urltosend,
       })
         .then((res) => {
-          //console.log(res.data);
+          console.log(res.data);
           if (this.data.length > 0) {
             this.data = [];
           }
@@ -157,9 +186,15 @@ export default defineComponent({
               temp_max: this.kelvinToCelsius(element.main.temp_max),
               description: element.weather[0].description,
             });
+
+            this.optionsla.xaxis.categories.push(element.dt);
+            this.series[0].data.push(this.kelvinToCelsius(element.main.temp));
+            this.series[1].data.push(
+              this.kelvinToCelsius(element.main.feels_like)
+            );
           });
 
-          //console.log(this.data);
+          console.log(this.optionsla);
         })
         .catch((err) => {
           console.log(err);

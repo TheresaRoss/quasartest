@@ -68,8 +68,6 @@ export default defineComponent({
     };
   },
   created() {
-    console.log("value1 ", this.store.doubleCount);
-    console.log("value2 ", this.store2.doubleCount);
     this.$axios({
       method: "get",
       url:
@@ -77,7 +75,6 @@ export default defineComponent({
         process.env.API_KEY,
     })
       .then((res) => {
-        console.log(res.data);
         this.weatherdata = res.data;
       })
       .catch((err) => {

@@ -1,5 +1,6 @@
 <template>
   <h3>Welcome To Weather Page</h3>
+  import apex from "src/boot/apex";
 
   <q-card class="my-card" style="max-width: 90vw" flat bordered>
     <q-img src="mountainbg.jpg" fit="cover" style="max-height: 300px">
@@ -69,22 +70,45 @@
       <q-btn flat round color="primary" icon="share" />
     </q-card-actions>
   </q-card>
+  <apexchart
+    width="1000"
+    type="line"
+    :options="optionsla"
+    :series="series"
+  ></apexchart>
 </template>
 
 <script>
 import { defineComponent, ref } from "vue";
-
+import localforage from "localforage";
 export default defineComponent({
   name: "WeatherNa",
   setup() {
     return {
       city: ref(null),
-
       options: ["Bangkok", "London", "Tokyo", "Berlin", "New York", "Auckland"],
     };
   },
   data() {
     return {
+      optionsla: {
+        chart: {
+          id: "vuechart-example",
+        },
+        xaxis: {
+          categories: ["hi", 1992, 1993, 1994, 1995, 1996, 1997, 1998],
+        },
+        markers: {
+          size: 7,
+          colors: ["#f44336"],
+        },
+      },
+      series: [
+        {
+          name: "series-1",
+          data: [30, 40, 45, 50, 49, 60, 70, 91],
+        },
+      ],
       weatherdata: {
         main: {},
         sys: {},
@@ -108,7 +132,6 @@ export default defineComponent({
         process.env.API_KEY;
       this.$axios({
         method: "get",
-
         url: urltosend,
       })
         .then((res) => {
@@ -147,7 +170,6 @@ export default defineComponent({
           this.weathersym.name = " weather_snowy";
           this.weathersym.color = "white";
           return;
-
         case 8:
           if (code == 800) {
             this.weathersym.name = " sunny";
@@ -162,6 +184,7 @@ export default defineComponent({
       }
     },
   },
+  components: {},
 });
 </script>
 <style lang="sass" scoped>
