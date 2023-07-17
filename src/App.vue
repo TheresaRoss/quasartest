@@ -1,20 +1,15 @@
 <template>
-  <HeaderVue />
-  <q-layout
-    view="hHh Lpr lff"
-    container
-    style="height: 100vh"
-    class="shadow-2 rounded-borders"
-  >
+  <q-layout view="lHh Lpr fff" class="bg-grey-1">
+    <HeaderVue />
     <DrawerVue />
-    <div class="q-mx-lg">
+    <q-page-container class="GPL__page-container q-px-lg">
       <router-view />
-    </div>
+    </q-page-container>
   </q-layout>
 </template>
 
 <script>
-import { VueElement, defineComponent } from "vue";
+import { VueElement, defineComponent, ref } from "vue";
 import { useCounterStore } from "./stores/main";
 import HeaderVue from "./layouts/HeaderVue.vue";
 import DrawerVue from "./layouts/DrawerVue.vue";
@@ -22,7 +17,23 @@ import localforage from "localforage";
 export default defineComponent({
   name: "App",
   setup() {
-    return {};
+    const leftDrawerOpen = ref(false);
+    const search = ref("");
+
+    const store = useCounterStore();
+
+    function toggleLeftDrawer() {
+      leftDrawerOpen.value = !leftDrawerOpen.value;
+    }
+
+    return {
+      leftDrawerOpen,
+      search,
+
+      store,
+
+      toggleLeftDrawer,
+    };
   },
   created() {
     localforage

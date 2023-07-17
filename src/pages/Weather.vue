@@ -1,6 +1,5 @@
 <template>
   <h3>Welcome To Weather Page</h3>
-  import apex from "src/boot/apex";
 
   <q-card class="my-card" style="max-width: 90vw" flat bordered>
     <q-img src="mountainbg.jpg" fit="cover" style="max-height: 300px">
